@@ -24,5 +24,32 @@ public class LambdaExercises {
 
         // string nie implementuje boys
         // BoysDontCry stupid = new String( "");
+
+        //STWORZENIE LAMBDY
+        // metoda nic nie przyjmuje i nic nie zwraca
+//        BoysDontCry firstLambda = () -> {
+//        }; // - def metody silnoreki (jest w tym interface tylko jedna metoda ktora nic nie przyjmujke i nic nie zwraca
+//
+//        //lambda nic nie przyjmuje alew cos zwraca
+//        BoysDontCry secondLambda = () -> System.out.println("Lambda");
+//        // lambda jest definicja obiektu,
+//        // nie ma cialu wiec trzeba zaimplementowac cialo
+//        secondLambda.silnoreki();
+//
+//        BoysDontCry thirdLambda = () -> {
+//            System.out.println("one");
+//            System.out.println("second");
+//        };
+//    }
+        // () parenthesis - arguments list
+        // -> arguments, body separator
+        // {} parenthesis - method body
+        BoysDontCry firstLambda = () -> {};
+        BoysDontCry secondLambda = () -> System.out.println("Lambda:)");
+        secondLambda.silnoreki();
+        BoysDontCry thirdLambda = () -> {
+            System.out.println("one");
+            System.out.println("second");
+        };
     }
 }

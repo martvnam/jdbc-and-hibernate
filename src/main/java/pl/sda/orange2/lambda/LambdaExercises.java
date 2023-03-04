@@ -11,5 +11,18 @@ public class LambdaExercises {
         // boy.sing();
         ChlopakiNiePlacza boy2 = new ChlopakiNiePlacza();
         boy2.sing();
+
+
+        // klasa anonimowa
+        BoysDontCry anonymousClassReference = new BoysDontCry() {
+            @Override
+            public void silnoreki() {
+                System.out.println("Anonimowy Silnoreki");
+            }
+        };
+        anonymousClassReference.silnoreki();
+
+        // string nie implementuje boys
+        // BoysDontCry stupid = new String( "");
     }
 }

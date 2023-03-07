@@ -7,15 +7,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import pl.sda.orange2.jdbc.config.H2Config;
+
+import java.sql.*;
+
 public class TestConnection {
     public static void main(String[] args) {
         String className = TestConnection.class.getName();
         System.out.println("Current class name is: " + className);
+
         String query = """
                 SELECT ID, NAME
                 FROM TEST
                 """;
 
+        Statement queryStatement = null;
         try {
 //            Connection h2Connection = DriverManager.getConnection(H2Config.DB_URL,
 //                    H2Config.USER,
@@ -28,7 +34,7 @@ public class TestConnection {
             System.out.println("got connection: " + (h2Connection != null));
 
             // Statement is used to send queries to db with existing connection
-            Statement queryStatement = h2Connection.createStatement();
+            queryStatement = h2Connection.createStatement();
 
             // ResultSet contains query result data as simple table
             // we need to iterate over result to got data
@@ -40,6 +46,17 @@ public class TestConnection {
         } catch (SQLException exc) {
             System.out.println("got exception: " + exc);
             exc.printStackTrace();
+        } finally {
+            System.out.println("Finally I know it :)");
+            if (queryStatement != null) {
+                try {
+                    queryStatement.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
+
+        System.out.println("The end");
     }
 }

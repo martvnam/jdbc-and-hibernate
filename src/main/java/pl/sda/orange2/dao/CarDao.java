@@ -2,17 +2,6 @@ package pl.sda.orange2.dao;
 
 import pl.sda.orange2.entity.Car;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-
-
-
-import pl.sda.orange2.entity.Car;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +27,32 @@ public class CarDao implements DataAccess<Car, Long> {
 
     @Override
     public void save(Car car) {
-
+        String saveQuery;
+        if (car.id() != null) {
+            // update
+            saveQuery = """
+                    UPDATE CARS
+                    SET COLOUR = ?, BRAND = ?, MODEL = ?
+                    WHERE ID = ?               
+                    """;
+        } else {
+            // insert
+            saveQuery = """
+                    INSERT INTO CARS (COLOUR, BRAND, MODEL)
+                    VALUES (?, ?, ?)
+                    """;
+            try {
+                PreparedStatement queryStatement = dbConnection.prepareStatement(saveQuery);
+                queryStatement.setString(1, car.colour());
+                queryStatement.setString(2, car.brand());
+                queryStatement.setString(3, car.model());
+                int numberOfTouchedRecords = queryStatement.executeUpdate();
+                System.out.println("Number of touched records: " + numberOfTouchedRecords);
+            } catch (SQLException e) {
+                System.out.println("Unexpected sql exception occurred");
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -101,6 +115,20 @@ public class CarDao implements DataAccess<Car, Long> {
 
     @Override
     public void deleteById(Long id) {
+        String deleteCarByIdQuery = """
+                DELETE
+                FROM CARS
+                WHERE ID = ?
+                """;
 
+        try {
+            PreparedStatement queryStatement = dbConnection.prepareStatement(deleteCarByIdQuery);
+            queryStatement.setLong(1, id);
+            int numberOfTouchedRecords = queryStatement.executeUpdate();
+            System.out.println("Number of touched records: " + numberOfTouchedRecords);
+        } catch (SQLException e) {
+            System.out.println("Unexpected sql exception occurred");
+            e.printStackTrace();
+        }
     }
 }

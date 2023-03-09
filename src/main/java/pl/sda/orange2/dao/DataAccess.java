@@ -2,18 +2,12 @@ package pl.sda.orange2.dao;
 
 import java.util.List;
 
-public interface DataAcess<E, ID> {
-    void save(E E) {
-    }
-    List<E> findAll() {
-        return List.of();
-    }
+public interface DataAccess<E, ID> {
+    void save(E car);
 
-    E findById(ID id) {
-        return null;
-    }
+    List<E> findAll();
 
-    void deleteById(ID id) {
+    E findById(ID id);
 
-    }
+    void deleteById(ID id);
 }

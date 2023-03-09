@@ -29,6 +29,21 @@ public class CarDaoExample {
             System.out.println("Now with non existent id");
             Car nullCar = carDao.findById(5L);
             System.out.println("Non existent car: " + nullCar);
+
+            System.out.println("Now let's delete car");
+            carDao.deleteById(1L);
+            System.out.println("Cars after deleting one: " + carDao.findAll());
+
+            Car newCarToSave = new Car(null, "pink", "Fiat", "Maluch");
+            carDao.save(newCarToSave);
+            System.out.println("Cars now: " + carDao.findAll());
+
+            System.out.println("Now, let's try to update car");
+            Car toUpdate = new Car(3L, "Pink", "JEEP", "PINK");
+            carDao.save(toUpdate);
+
+            System.out.println("Get all car from db");
+            System.out.println("Cars now: " + carDao.findAll());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
